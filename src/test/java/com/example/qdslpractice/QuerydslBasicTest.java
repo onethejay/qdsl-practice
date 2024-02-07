@@ -1,5 +1,6 @@
 package com.example.qdslpractice;
 
+import com.example.qdslpractice.dto.MemberDto;
 import com.example.qdslpractice.entity.Member;
 import com.example.qdslpractice.entity.Team;
 import com.querydsl.core.Tuple;
@@ -71,4 +72,18 @@ public class QuerydslBasicTest {
             System.out.println("age = " + age);
         }
     }
+
+    @Test
+    void findDtoByJPQL() {
+        final List<MemberDto> result = em.createQuery(
+                "select new com.example.qdslpractice.dto.MemberDto(m.username, m.age) from Member m", MemberDto.class
+        ).getResultList();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+    }
+
+
+
 }
